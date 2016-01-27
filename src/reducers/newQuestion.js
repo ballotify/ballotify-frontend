@@ -23,7 +23,9 @@ const newQuestion = handleActions({
     },
 
     EDIT_QUESTION_CHOICE: (state, action) => {
-        console.log(action.payload);
+        return state.updateIn(['choices'], (arr) => arr.update(
+            action.payload.id, (item) => item.merge(action.payload.choice)
+        ));
     },
 
     DELETE_QUESTION_CHOICE: (state, action) => {

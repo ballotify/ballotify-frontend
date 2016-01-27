@@ -1,5 +1,25 @@
 .question-form
-    .list-group-item
+    .choice
         display: flex
         align-items: center
         justify-content: space-between
+        height: 3rem
+
+        button
+            width: 5rem
+            margin-left: 0.5rem
+
+        &.choice-title
+            cursor: pointer
+
+            button
+                display: none
+
+            &:hover
+                button
+                    display: inline
+
+        &.choice-input
+            input
+                height: 2rem
+                flex-grow: 1

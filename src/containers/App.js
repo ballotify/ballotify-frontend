@@ -5,13 +5,22 @@ import QuestionForm from '../components/QuestionForm';
 import * as NewQuestionActions from '../actions/newQuestion';
 
 class App extends React.Component {
-  render() {
-    const { newQuestion, actions } = this.props;
+    componentDidMount() {
+        const { actions } = this.props;
+        actions.addQuestionChoice('Jora');
+        actions.addQuestionChoice('Valera');
+        actions.editQuestionChoice(1, {
+            title: 'Vani4ka'
+        });
+    }
 
-    return (
-        <QuestionForm newQuestion={newQuestion} actions={actions} />
-    );
-  }
+    render() {
+        const { newQuestion, actions } = this.props;
+
+        return (
+            <QuestionForm newQuestion={newQuestion} actions={actions} />
+        );
+    }
 }
 
 App.propTypes = {
@@ -26,12 +35,12 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(NewQuestionActions, dispatch)
-  };
+    return {
+        actions: bindActionCreators(NewQuestionActions, dispatch)
+    };
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(App);

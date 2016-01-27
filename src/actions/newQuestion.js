@@ -18,10 +18,10 @@ export const addQuestionChoice = createAction(
 );
 
 export const editQuestionChoice = createAction(
-    types.EDIT_QUESTION_CHOICE, (id, title) => {
+    types.EDIT_QUESTION_CHOICE, (id, choice) => {
         return {
             id,
-            title
+            choice
         };
     }
 );
