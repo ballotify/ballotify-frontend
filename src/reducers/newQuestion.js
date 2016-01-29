@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import {EDIT_QUESTION_TITLE, ADD_QUESTION_CHOICE, EDIT_QUESTION_CHOICE, DELETE_QUESTION_CHOICE} from '../constants/ActionTypes';
+import { EDIT_QUESTION_TITLE, ADD_QUESTION_CHOICE, EDIT_QUESTION_CHOICE, DELETE_QUESTION_CHOICE } from '../constants/ActionTypes';
 import Immutable from 'immutable';
 
 
@@ -24,7 +24,8 @@ const newQuestion = handleActions({
 
     EDIT_QUESTION_CHOICE: (state, action) => {
         return state.updateIn(['choices'], (arr) => arr.update(
-            action.payload.id, (item) => item.merge(action.payload.choice)
+            arr.findIndex(item => item.get('id') === action.payload.id),
+            (item) => item.merge(action.payload.choice)
         ));
     },
 

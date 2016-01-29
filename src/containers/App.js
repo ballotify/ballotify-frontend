@@ -1,46 +1,22 @@
 import React, { PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import QuestionForm from '../components/QuestionForm';
-import * as NewQuestionActions from '../actions/newQuestion';
+import Navigation from './Navigation';
+
 
 class App extends React.Component {
-    componentDidMount() {
-        const { actions } = this.props;
-        actions.addQuestionChoice('Jora');
-        actions.addQuestionChoice('Valera');
-        actions.editQuestionChoice(1, {
-            title: 'Vani4ka'
-        });
-    }
-
     render() {
-        const { newQuestion, actions } = this.props;
-
         return (
-            <QuestionForm newQuestion={newQuestion} actions={actions} />
+            <div>
+                <Navigation />
+                <div className="app container">
+                    {this.props.children}
+                </div>
+            </div>
         );
     }
 }
 
 App.propTypes = {
-    actions: PropTypes.object.isRequired,
-    newQuestion: PropTypes.object.isRequired
+    children: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state) {
-    return {
-        newQuestion: state.get('newQuestion')
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(NewQuestionActions, dispatch)
-    };
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(App);
+export default App;
