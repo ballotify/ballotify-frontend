@@ -8,7 +8,7 @@ export default class Navigation extends React.Component {
             <div className="navbar navbar-light bg-faded navbar-static-top">
                 <ui className="nav navbar-nav">
                     <li className="nav-item"><IndexLink to="/" className="nav-link" activeClassName="active">Home</IndexLink></li>
-                    <li className="nav-item"><Link to="/about" className="nav-link" activeClassName="active">About</Link></li>
+                    <li className="nav-item"><Link to="/questions" className="nav-link" activeClassName="active">Questions</Link></li>
                 </ui>
             </div>
         );

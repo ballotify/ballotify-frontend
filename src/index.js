@@ -4,6 +4,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import App from './containers/App';
 import Index from './containers/Index';
+import Questions from './containers/Questions';
 import NoMatch from './containers/NoMatch';
 import configureStore from './store/configureStore';
 import './styles/styles.sass';
@@ -15,6 +16,7 @@ render(
         <Router history={browserHistory}>
           <Route path="/" component={App}>
             <IndexRoute component={Index} />
+            <Route path="questions" component={Questions} />
             <Route path="*" component={NoMatch} />
           </Route>
         </Router>

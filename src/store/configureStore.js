@@ -1,11 +1,15 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from '../reducers';
+import promiseMiddleware from 'redux-promise-middleware';
 import Immutable from 'immutable';
 
 export default function configureStore() {
     const initialState = Immutable.fromJS({});
 
-    const store = (window.devToolsExtension ? window.devToolsExtension()(createStore) : createStore)(rootReducer, initialState);
+    const store = createStore(rootReducer, initialState, compose(
+      applyMiddleware(promiseMiddleware()),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
+    ));
 
     if (module.hot) {
         // Enable Webpack hot module replacement for reducers
