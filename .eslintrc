@@ -60,5 +60,6 @@
     "react/wrap-multilines": 1
   },
   "globals": {
+      FB: true
   }
 }

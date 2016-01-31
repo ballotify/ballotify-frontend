@@ -1,12 +1,52 @@
 import React, { PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import Immutable from 'immutable';
+import * as AuthActions from '../actions/auth';
 import Navigation from './Navigation';
 
 
 class App extends React.Component {
+    componentDidMount() {
+        window.fbAsyncInit = () => {
+            FB.init({
+                appId       : '107790869310294',
+                xfbml       : true,
+                version     : 'v2.5'
+            });
+            FB.getLoginStatus((response) => {
+                this.checkLoginState(response);
+            }.bind(this));
+
+        }.bind(this);
+
+        (d, s, id) => {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk');
+    }
+
+    checkLoginState(response) {
+        const {actions, auth} = this.props;
+
+        if (response.status == 'connected') {
+            if (!auth.get('isAuthenticated')) {
+                actions.facebookLogin(response.authResponse.accessToken);
+            }
+        } else {
+            actions.logout();
+        }
+    }
+
     render() {
+        const { auth, actions } = this.props;
+
         return (
             <div>
-                <Navigation />
+                <Navigation auth={auth} actions={actions} />
                 <div className="app container">
                     {this.props.children}
                 </div>
@@ -16,7 +56,25 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-    children: PropTypes.object.isRequired
+    auth: PropTypes.instanceOf(Immutable.Map).isRequired,
+    children: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired
 };
 
-export default App;
+
+function mapStateToProps(state) {
+    return {
+        auth: state.get('auth')
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(AuthActions, dispatch)
+    };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);

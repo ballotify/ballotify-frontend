@@ -15,6 +15,7 @@ var bundler = webpack(webpackConfig);
 browserSync({
   server: {
     baseDir: 'src',
+    historyApiFallback: true,
 
     middleware: [
       webpackDevMiddleware(bundler, {

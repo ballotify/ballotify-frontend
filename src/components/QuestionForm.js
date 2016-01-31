@@ -19,8 +19,28 @@ export default class QuestionForm extends Component {
         }
     }
 
+    facebookLogin() {
+        const { actions } = this.props;
+        console.log("Facebook API going to be called here!");
+    }
+
     render() {
-        const { actions, newQuestion } = this.props;
+        const { actions, auth, newQuestion } = this.props;
+
+        let createQuestionBlock;
+
+        if (auth.get('isAuthenticated')) {
+            createQuestionBlock = (<p>TODO: Create question button is going to be here!</p>);
+        } else {
+            if (auth.get('isPending')) {
+                createQuestionBlock = (<p>Loading...</p>);
+            } else {
+                createQuestionBlock = (
+                    <button type="button" className="btn btn-success-outline btn-sm"
+                        onClick={this.facebookLogin.bind(this)}>Login with Facebook</button>
+                );
+            }
+        }
 
         return (
             <div className="question-form">
@@ -41,12 +61,14 @@ export default class QuestionForm extends Component {
                       <QuestionChoice key={choice.get('id')} actions={actions} choice={choice} />
                     )}
                 </div>
+                {createQuestionBlock}
             </div>
         );
     }
 }
 
 QuestionForm.propTypes = {
+    auth: PropTypes.instanceOf(Immutable.Map).isRequired,
     newQuestion: PropTypes.instanceOf(Immutable.Map).isRequired,
     actions: PropTypes.object.isRequired
 };
