@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from '../reducers';
+import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import Immutable from 'immutable';
 
@@ -7,7 +8,7 @@ export default function configureStore() {
     const initialState = Immutable.fromJS({});
 
     const store = createStore(rootReducer, initialState, compose(
-      applyMiddleware(promiseMiddleware()),
+      applyMiddleware(thunk, promiseMiddleware()),
       window.devToolsExtension ? window.devToolsExtension() : f => f
     ));
 

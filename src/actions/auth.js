@@ -4,6 +4,7 @@ import { api } from '../utils/api';
 
 export const loginSuccess = createAction(
     types.LOGIN_SUCCESS, (token) => {
+        localStorage.setItem('jwtToken', token);
         return {
             token
         };
@@ -16,9 +17,16 @@ export function facebookLogin(fbToken) {
         payload: {
             promise: api.post('/login', {
                 token: fbToken
+            }).then(response => {
+                return (action, dispatch, getState) => {
+                    dispatch(loginSuccess(response.token));
+                    return response;
+                };
             })
         }
     };
 }
 
-export const logout = createAction(types.LOGOUT);
+export const logout = createAction(types.LOGOUT, () => {
+    localStorage.removeItem('jwtToken');
+});

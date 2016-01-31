@@ -14,17 +14,15 @@ const initialState = Immutable.fromJS({
 
 const auth = handleActions({
     LOGIN_SUCCESS: (state, action) => {
-        // TODO: Is it mutation? Should it be outside of reducers?
-        localStorage.setItem('jwtToken', action.payload.token);
-
         return state.merge({
             isAuthenticated: true,
-            jwtToken: action.payload.token
+            jwtToken: action.payload.token,
+            isPending: false,
+            isFulfilled: true
         });
     },
 
     LOGOUT: (state, action) => {
-        localStorage.removeItem('jwtToken');
         return state.merge({
             isAuthenticated: false,
             jwtToken: null
@@ -33,16 +31,6 @@ const auth = handleActions({
 
     LOGIN_FACEBOOK_PENDING: (state, action) => {
         return state.set('isPending', true);
-    },
-
-    LOGIN_FACEBOOK_FULFILLED: (state, action) => {
-        localStorage.setItem('jwtToken', action.payload.token);
-        return state.merge({
-            isPending: false,
-            isFulfilled: true,
-            isAuthenticated: true,
-            jwtToken: action.payload.token
-        });
     }
 
 }, initialState);
