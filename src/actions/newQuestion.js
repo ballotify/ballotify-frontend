@@ -33,3 +33,5 @@ export const deleteQuestionChoice = createAction(
         };
     }
 );
+
+export const cleanQuestion = createAction(types.CLEAN_QUESTION);

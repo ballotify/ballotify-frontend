@@ -30,7 +30,7 @@ export default class Navigation extends React.Component {
                             onClick={this.handleLogout.bind(this)}>Logout</button>);
         } else {
             authBlock = (<button className="btn btn-primary-outline pull-xs-right" type="submit"
-                            onClick={this.facebookLogin.bind(this)}>Login</button>);
+                            onClick={this.facebookLogin.bind(this)}>Login with Facebook</button>);
         }
 
         return (

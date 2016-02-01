@@ -2,13 +2,17 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
+import { Link } from 'react-router';
 import * as QuestionsActions from '../actions/questions';
 
 
 export default class Questions extends React.Component {
     componentWillMount() {
-        const { actions } = this.props;
-        actions.getQuestions();
+        const { actions, questions } = this.props;
+
+        if (!questions.get('isFulfilled')) {
+            actions.getQuestions();
+        }
     }
 
     render() {
@@ -22,7 +26,9 @@ export default class Questions extends React.Component {
             element = (
                 <div>
                     {questions.get('data').map(question =>
-                      <div key={question.slug} className="list-group-item">{question.title}</div>
+                      <div key={question.slug} className="list-group-item">
+                          <Link to={`/questions/${question.slug}`}>{question.title}</Link>
+                      </div>
                     )}
                 </div>
             );

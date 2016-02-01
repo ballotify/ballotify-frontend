@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as NewQuestionActions from '../actions/newQuestion';
 import * as AuthActions from '../actions/auth';
+import * as currentQuestionActions from '../actions/currentQuestion';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import QuestionForm from '../components/QuestionForm';
@@ -31,7 +32,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(Object.assign({}, AuthActions, NewQuestionActions), dispatch)
+        actions: bindActionCreators(Object.assign({}, AuthActions, NewQuestionActions, currentQuestionActions), dispatch)
     };
 }
 

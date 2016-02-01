@@ -7,23 +7,26 @@ const initialState = Immutable.fromJS({
     isPending: null,
     isFulfilled: null,
     isRejected: null,
-    error: null,
-    current: null,
-    data: []
+    error: null
 });
 
-const questions = handleActions({
-    GET_QUESTIONS_PENDING: (state, action) => {
+const currentQuestion = handleActions({
+    CREATE_QUESTION_PENDING: (state, action) => {
         return state.set('isPending', true);
     },
 
-    GET_QUESTIONS_FULFILLED: (state, action) => {
+    GET_QUESTION_PENDING: (state, action) => {
+        return state.set('isPending', true);
+    },
+
+    GET_QUESTION_FULFILLED: (state, action) => {
         return state.merge({
             isPending: false,
             isFulfilled: true,
-            data: Immutable.List(action.payload.results)
+            ...action.payload
         });
     }
+
 }, initialState);
 
-export default questions;
+export default currentQuestion;

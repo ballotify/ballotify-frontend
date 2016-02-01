@@ -13,6 +13,13 @@ const newQuestion = handleActions({
         return state.merge(action.payload);
     },
 
+    CLEAN_QUESTION: (state, action) => {
+        return Immutable.Map({
+            title: null,
+            choices: []
+        });
+    },
+
     ADD_QUESTION_CHOICE: (state, action) => {
         const newChoice = Immutable.Map({
             title: action.payload.title,

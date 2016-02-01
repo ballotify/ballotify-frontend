@@ -19,6 +19,12 @@ export default class QuestionForm extends Component {
         }
     }
 
+    handleCreateQuestion() {
+        const { actions, newQuestion } = this.props;
+        // TODO: Validate if title and more than 2 choices are created before actually creating the question.
+        actions.createQuestion(newQuestion.toJS());
+    }
+
     facebookLogin() {
         const { actions } = this.props;
         FB.login((response) => {
@@ -36,13 +42,16 @@ export default class QuestionForm extends Component {
         let createQuestionBlock;
 
         if (auth.get('isAuthenticated')) {
-            createQuestionBlock = (<p>TODO: Create question button is going to be here!</p>);
+            createQuestionBlock = (
+                <button type="button" className="btn btn-success-outline btn-sm"
+                    onClick={this.handleCreateQuestion.bind(this)}>Ask Question</button>
+            );
         } else {
             if (auth.get('isPending')) {
                 createQuestionBlock = (<p>Loading...</p>);
             } else {
                 createQuestionBlock = (
-                    <button type="button" className="btn btn-success-outline btn-sm"
+                    <button type="button" className="btn btn-primary-outline btn-sm"
                         onClick={this.facebookLogin.bind(this)}>Login with Facebook</button>
                 );
             }
@@ -67,7 +76,9 @@ export default class QuestionForm extends Component {
                       <QuestionChoice key={choice.get('id')} actions={actions} choice={choice} />
                     )}
                 </div>
-                {createQuestionBlock}
+                <div className="create-question">
+                    {createQuestionBlock}
+                </div>
             </div>
         );
     }
