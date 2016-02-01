@@ -9,9 +9,16 @@ export default class Navigation extends React.Component {
         actions.logout();
     }
 
-    handleLogin() {
+    facebookLogin() {
         const { actions } = this.props;
-        console.log("TODO: FB SDK login first.");
+
+        FB.login((response) => {
+            if (response.authResponse) {
+                actions.facebookLogin(response.authResponse.accessToken);
+            } else {
+             console.log('User cancelled login or did not fully authorize.');
+            }
+        });
     }
 
     render() {
@@ -23,7 +30,7 @@ export default class Navigation extends React.Component {
                             onClick={this.handleLogout.bind(this)}>Logout</button>);
         } else {
             authBlock = (<button className="btn btn-primary-outline pull-xs-right" type="submit"
-                            onClick={this.handleLogin.bind(this)}>Login</button>);
+                            onClick={this.facebookLogin.bind(this)}>Login</button>);
         }
 
         return (

@@ -29,4 +29,11 @@ export function facebookLogin(fbToken) {
 
 export const logout = createAction(types.LOGOUT, () => {
     localStorage.removeItem('jwtToken');
+
+    // Logout from Facebook if there is access token available
+    FB.getLoginStatus((response) => {
+        if (response.authResponse && response.authResponse.accessToken) {
+            FB.logout();
+        }
+    });
 });

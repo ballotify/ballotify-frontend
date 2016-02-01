@@ -21,7 +21,13 @@ export default class QuestionForm extends Component {
 
     facebookLogin() {
         const { actions } = this.props;
-        console.log("Facebook API going to be called here!");
+        FB.login((response) => {
+            if (response.authResponse) {
+                actions.facebookLogin(response.authResponse.accessToken);
+            } else {
+             console.log('User cancelled login or did not fully authorize.');
+            }
+        });
     }
 
     render() {

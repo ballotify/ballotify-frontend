@@ -31,7 +31,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(AuthActions, NewQuestionActions, dispatch)
+        actions: bindActionCreators(Object.assign({}, AuthActions, NewQuestionActions), dispatch)
     };
 }
 

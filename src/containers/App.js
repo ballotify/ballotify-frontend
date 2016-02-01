@@ -14,11 +14,7 @@ class App extends React.Component {
                 xfbml       : true,
                 version     : 'v2.5'
             });
-            FB.getLoginStatus((response) => {
-                this.checkLoginState(response);
-            }.bind(this));
-
-        }.bind(this);
+        };
 
         (d, s, id) => {
             var js, fjs = d.getElementsByTagName(s)[0];
@@ -27,18 +23,6 @@ class App extends React.Component {
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk');
-    }
-
-    checkLoginState(response) {
-        const {actions, auth} = this.props;
-
-        if (response.status == 'connected') {
-            if (!auth.get('isAuthenticated')) {
-                actions.facebookLogin(response.authResponse.accessToken);
-            }
-        } else {
-            actions.logout();
-        }
     }
 
     render() {
