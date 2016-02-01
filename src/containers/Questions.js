@@ -9,10 +9,7 @@ import * as QuestionsActions from '../actions/questions';
 export default class Questions extends React.Component {
     componentWillMount() {
         const { actions, questions } = this.props;
-
-        if (!questions.get('isFulfilled')) {
-            actions.getQuestions();
-        }
+        actions.getQuestions();
     }
 
     render() {

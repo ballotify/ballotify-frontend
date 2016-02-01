@@ -4,9 +4,25 @@ import QuestionChoice from '../components/QuestionChoice';
 
 
 export default class QuestionForm extends Component {
+    constructor (props, context) {
+        super(props, context);
+
+        this.state = {
+            error: null
+        };
+    }
+
     handleTitleChange(e) {
         const { actions } = this.props;
         actions.editQuestionTitle(e.target.value);
+    }
+
+    handleSubmitTitle(e) {
+        const value = e.target.value.trim();
+
+        if (e.which === 13 && value.length > 0) {
+            this.refs.choice.focus();
+        }
     }
 
     handleSubmitChoice(e) {
@@ -16,13 +32,27 @@ export default class QuestionForm extends Component {
         if (e.which === 13 && value.length > 0) {
             actions.addQuestionChoice(value);
             e.target.value = null;
+            this.setState({ error: null });
         }
     }
 
     handleCreateQuestion() {
         const { actions, newQuestion } = this.props;
-        // TODO: Validate if title and more than 2 choices are created before actually creating the question.
-        actions.createQuestion(newQuestion.toJS());
+
+        let error;
+        if (!newQuestion.get('title')) {
+            this.setState({
+                error: "Would you like to ask something first?"
+            });
+            this.refs.question.focus();
+        } else if (newQuestion.get('choices').count() < 2) {
+            this.setState({
+                error: "Too small amount of choices, buddy..."
+            });
+            this.refs.choice.focus();
+        } else {
+            actions.createQuestion(newQuestion.toJS());
+        }
     }
 
     facebookLogin() {
@@ -63,7 +93,8 @@ export default class QuestionForm extends Component {
                     <fieldset className="form-group">
                         <label htmlFor="question">Enter your question:</label>
                         <input className="form-control" id="question" ref="question" placeholder="What?"
-                            onChange={this.handleTitleChange.bind(this)} />
+                            onChange={this.handleTitleChange.bind(this)}
+                            onKeyDown={this.handleSubmitTitle.bind(this)} />
                     </fieldset>
                     <fieldset className="form-group">
                         <label htmlFor="choice">Enter your choice:</label>
@@ -75,6 +106,9 @@ export default class QuestionForm extends Component {
                     {newQuestion.get('choices').map(choice =>
                       <QuestionChoice key={choice.get('id')} actions={actions} choice={choice} />
                     )}
+                </div>
+                <div className="error">
+                    {this.state.error}
                 </div>
                 <div className="create-question">
                     {createQuestionBlock}
