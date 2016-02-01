@@ -2,13 +2,23 @@ import request from './request';
 
 const Api = () => {
 
-    const defaultOptions = {
-        mode: 'cors',
-        headers: {
+    function defaultOptions() {
+        const headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
+        };
+
+        const token = localStorage.getItem('jwtToken');
+
+        if (token) {
+            headers.Authorization = `JWT ${token}`;
         }
-    };
+
+        return {
+            mode: 'cors',
+            headers: headers
+        };
+    }
 
     const base = 'http://localhost:8002/v1';
 
@@ -17,7 +27,7 @@ const Api = () => {
         post: (path, body, options = {}) => {
             return request(`${base}${path}/`, Object.assign(
                 options,
-                defaultOptions, {
+                defaultOptions(), {
                     method: 'POST',
                     body: JSON.stringify(body)
                 }
@@ -27,7 +37,7 @@ const Api = () => {
         get: (path, options = {}) => {
             return request(`${base}${path}/`, Object.assign(
                 options,
-                defaultOptions, {
+                defaultOptions(), {
                     method: 'GET'
                 }
             ));
@@ -36,7 +46,7 @@ const Api = () => {
         edit: (path, body, options = {}) => {
             return request(`${base}${path}/`, Object.assign(
                 options,
-                defaultOptions, {
+                defaultOptions(), {
                     method: 'PUT'
                 }
             ));
@@ -45,7 +55,7 @@ const Api = () => {
         delete: (path, options = {}) => {
             return request(`${base}${path}/`, Object.assign(
                 options,
-                defaultOptions, {
+                defaultOptions(), {
                     method: 'DELETE'
                 }
             ));
