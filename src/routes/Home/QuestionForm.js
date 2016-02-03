@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Immutable from 'immutable';
-import QuestionChoice from '../components/QuestionChoice';
+import QuestionChoice from './QuestionChoice';
 
 
 export default class QuestionForm extends Component {

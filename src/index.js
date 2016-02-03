@@ -3,9 +3,9 @@ import { render } from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import App from './containers/App';
-import Index from './containers/Index';
-import Questions from './containers/Questions';
-import QuestionDetails from './containers/QuestionDetails';
+import Home from './routes/Home';
+import Questions from './routes/Questions';
+import QuestionDetails from './routes/QuestionDetails';
 import NoMatch from './containers/NoMatch';
 import configureStore from './store/configureStore';
 import { loginSuccess } from './actions/auth';
@@ -22,7 +22,7 @@ render(
     <Provider store={store}>
         <Router history={browserHistory}>
           <Route path="/" component={App}>
-            <IndexRoute component={Index} />
+            <IndexRoute component={Home} />
             <Route path="questions" component={Questions} />
             <Route path="questions/:slug" component={QuestionDetails} />
             <Route path="*" component={NoMatch} />

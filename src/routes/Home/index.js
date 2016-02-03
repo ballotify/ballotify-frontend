@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import * as NewQuestionActions from '../actions/newQuestion';
-import * as AuthActions from '../actions/auth';
-import * as currentQuestionActions from '../actions/currentQuestion';
 import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import Immutable from 'immutable';
-import QuestionForm from '../components/QuestionForm';
+import * as NewQuestionActions from '../../actions/newQuestion';
+import * as AuthActions from '../../actions/auth';
+import * as currentQuestionActions from '../../actions/currentQuestion';
+import QuestionForm from './QuestionForm';
 
-class Index extends Component {
+class Home extends Component {
     render() {
         const { auth, newQuestion, actions } = this.props;
 
@@ -17,7 +17,7 @@ class Index extends Component {
     }
 }
 
-Index.propTypes = {
+Home.propTypes = {
     auth: PropTypes.instanceOf(Immutable.Map).isRequired,
     newQuestion: PropTypes.instanceOf(Immutable.Map).isRequired,
     actions: PropTypes.object.isRequired
@@ -39,4 +39,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Index);
+)(Home);

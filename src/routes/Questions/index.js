@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import { Link } from 'react-router';
-import * as QuestionsActions from '../actions/questions';
+import * as QuestionsActions from '../../actions/questions';
 
 
 export default class Questions extends React.Component {

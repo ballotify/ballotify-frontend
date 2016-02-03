@@ -23,7 +23,16 @@ const questions = handleActions({
             isFulfilled: true,
             data: Immutable.List(action.payload.results)
         });
+    },
+
+    GET_QUESTIONS_REJECTED: (state, action) => {
+        return state.merge({
+            isPending: false,
+            isRejected: true,
+            data: []
+        });
     }
+
 }, initialState);
 
 export default questions;

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
-import * as currentQuestionActions from '../actions/currentQuestion';
+import * as currentQuestionActions from '../../actions/currentQuestion';
 
 
 export default class QuestionDetails extends React.Component {
@@ -22,7 +22,14 @@ export default class QuestionDetails extends React.Component {
             questionBlock = (<p>Loading...</p>);
 
         } else if (currentQuestion.get('isFulfilled')) {
-            questionBlock = (<p>{currentQuestion.get('title')}</p>);
+            questionBlock = (<div>
+                <p>{currentQuestion.get('title')}</p>
+                <ul>
+                    {currentQuestion.get('choices').map(
+                        choice => <li key={choice.id}>{choice.get('title')}</li>
+                    )}
+                </ul>
+            </div>);
         }
 
         return (

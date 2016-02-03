@@ -5,13 +5,22 @@ import rootReducer from '../reducers';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import Immutable from 'immutable';
+import { logout } from '../actions/auth';
+
+const catch401 = store => next => action => {
+    if (action.payload.response && action.payload.response.status == 401) {
+        return next(logout());
+    }
+
+    return next(action);
+};
 
 export default function configureStore() {
     const initialState = Immutable.fromJS({});
     const reduxRouterMiddleware = syncHistory(browserHistory);
 
     const store = createStore(rootReducer, initialState, compose(
-      applyMiddleware(thunk, reduxRouterMiddleware, promiseMiddleware()),
+      applyMiddleware(thunk, reduxRouterMiddleware, catch401, promiseMiddleware()),
       window.devToolsExtension ? window.devToolsExtension() : f => f
     ));
 
