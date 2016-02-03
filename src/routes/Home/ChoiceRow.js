@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Immutable from 'immutable';
 
 
-export default class QuestionChoice extends Component {
+export default class ChoiceRow extends Component {
     constructor (props, context) {
         super(props, context);
 
@@ -109,7 +109,7 @@ export default class QuestionChoice extends Component {
     }
 }
 
-QuestionChoice.propTypes = {
+ChoiceRow.propTypes = {
     choice: PropTypes.instanceOf(Immutable.Map).isRequired,
     actions: PropTypes.object.isRequired
 };

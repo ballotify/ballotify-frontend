@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Immutable from 'immutable';
-import QuestionChoice from './QuestionChoice';
+import ChoiceRow from './ChoiceRow';
 
 
 export default class QuestionForm extends Component {
@@ -104,7 +104,7 @@ export default class QuestionForm extends Component {
                 </form>
                 <div className="list-group">
                     {newQuestion.get('choices').map(choice =>
-                      <QuestionChoice key={choice.get('id')} actions={actions} choice={choice} />
+                      <ChoiceRow key={choice.get('id')} actions={actions} choice={choice} />
                     )}
                 </div>
                 <div className="error">

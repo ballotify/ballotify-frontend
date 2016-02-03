@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
+import ChoiceRow from './ChoiceRow';
 import * as currentQuestionActions from '../../actions/currentQuestion';
 
 
@@ -26,7 +27,7 @@ export default class QuestionDetails extends React.Component {
                 <p>{currentQuestion.get('title')}</p>
                 <ul>
                     {currentQuestion.get('choices').map(
-                        choice => <li key={choice.id}>{choice.get('title')}</li>
+                        choice => <ChoiceRow key={choice.get('id')} choice={choice} question={currentQuestion} />
                     )}
                 </ul>
             </div>);
