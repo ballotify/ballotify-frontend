@@ -1,0 +1,22 @@
+.question-details
+    li
+        height: 3rem
+        padding: 0
+        display: flex
+
+        label
+            padding-left: 1rem
+            margin: 0
+            display: flex
+            flex-grow: 1
+            align-items: center
+
+            &.active
+                background: $active-color
+
+            &:hover
+                background: $hover-color
+                cursor: pointer
+
+        .choice-title
+            margin-left: 0.5rem

@@ -22,6 +22,7 @@
   "author": "Cory House",
   "license": "MIT",
   "dependencies": {
+    "classnames": "2.2.3",
     "immutable": "3.7.6",
     "isomorphic-fetch": "2.2.1",
     "object-assign": "4.0.1",

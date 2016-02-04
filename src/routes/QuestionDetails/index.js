@@ -25,7 +25,7 @@ export default class QuestionDetails extends React.Component {
         } else if (currentQuestion.get('isFulfilled')) {
             questionBlock = (<div>
                 <p>{currentQuestion.get('title')}</p>
-                <ul>
+                <ul className="list-group">
                     {currentQuestion.get('choices').map(
                         choice => <ChoiceRow key={choice.get('id')} choice={choice} question={currentQuestion} />
                     )}
@@ -34,7 +34,11 @@ export default class QuestionDetails extends React.Component {
         }
 
         return (
-            <div>{questionBlock}</div>
+            <div className="row question-details">
+                <div className="col-sm-12">
+                    {questionBlock}
+                </div>
+            </div>
         );
     }
 }
