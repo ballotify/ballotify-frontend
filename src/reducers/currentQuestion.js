@@ -7,7 +7,8 @@ const initialState = Immutable.fromJS({
     isPending: null,
     isFulfilled: null,
     isRejected: null,
-    error: null
+    error: null,
+    votes: []
 });
 
 const currentQuestion = handleActions({
@@ -23,8 +24,21 @@ const currentQuestion = handleActions({
         return state.merge({
             isPending: false,
             isFulfilled: true,
+            votes: Immutable.List([]),
             ...action.payload
         });
+    },
+
+    SET_QUESTION_VOTE: (state, action) => {
+        return state.updateIn(['votes'], arr => Immutable.List([action.payload.id]));
+    },
+
+    ADD_QUESTION_VOTE: (state, action) => {
+        return state.updateIn(['votes'], arr => arr.push(action.payload.id));
+    },
+
+    REMOVE_QUESTION_VOTE: (state, action) => {
+        return state.updateIn(['votes'], arr => arr.filter(item => item != action.payload.id));
     }
 
 }, initialState);

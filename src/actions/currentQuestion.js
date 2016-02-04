@@ -26,3 +26,27 @@ export function createQuestion(questionData) {
         }
     };
 }
+
+export const addQuestionVote = createAction(
+    types.ADD_QUESTION_VOTE, (id) => {
+        return {
+            id
+        };
+    }
+);
+
+export const removeQuestionVote = createAction(
+    types.REMOVE_QUESTION_VOTE, (id) => {
+        return {
+            id
+        };
+    }
+);
+
+export const setQuestionVote = createAction(
+    types.SET_QUESTION_VOTE, (id) => {
+        return {
+            id
+        };
+    }
+);

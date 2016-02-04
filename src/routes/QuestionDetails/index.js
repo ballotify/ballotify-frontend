@@ -16,7 +16,7 @@ export default class QuestionDetails extends React.Component {
     }
 
     render() {
-        const { currentQuestion } = this.props;
+        const { actions, currentQuestion } = this.props;
 
         let questionBlock;
         if (currentQuestion.get('isPending')) {
@@ -27,7 +27,7 @@ export default class QuestionDetails extends React.Component {
                 <p>{currentQuestion.get('title')}</p>
                 <ul className="list-group">
                     {currentQuestion.get('choices').map(
-                        choice => <ChoiceRow key={choice.get('id')} choice={choice} question={currentQuestion} />
+                        choice => <ChoiceRow key={choice.get('id')} choice={choice} question={currentQuestion} actions={actions} />
                     )}
                 </ul>
             </div>);
