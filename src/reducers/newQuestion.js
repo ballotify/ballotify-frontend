@@ -1,10 +1,13 @@
 import { handleActions } from 'redux-actions';
-import { EDIT_QUESTION_TITLE, ADD_QUESTION_CHOICE, EDIT_QUESTION_CHOICE, DELETE_QUESTION_CHOICE } from '../constants/ActionTypes';
+import { EDIT_QUESTION_TITLE, ADD_QUESTION_CHOICE, EDIT_QUESTION_CHOICE, DELETE_QUESTION_CHOICE, TOGGLE_QUESTION_OPTION } from '../constants/ActionTypes';
 import Immutable from 'immutable';
 
 
 const initialState = Immutable.fromJS({
     title: null,
+    isMultiple: false,
+    isRandomized: false,
+    isPrivate: false,
     choices: []
 });
 
@@ -16,7 +19,7 @@ const newQuestion = handleActions({
     CLEAN_QUESTION: (state, action) => {
         return Immutable.Map({
             title: null,
-            choices: []
+            choices: Immutable.List()
         });
     },
 
@@ -38,6 +41,10 @@ const newQuestion = handleActions({
 
     DELETE_QUESTION_CHOICE: (state, action) => {
         return state.updateIn(['choices'], arr => arr.filter(item => item.get('id') != action.payload.id));
+    },
+
+    TOGGLE_QUESTION_OPTION: (state, action) => {
+        return state.set(action.payload.option, !state.get(action.payload.option));
     }
 
 }, initialState);

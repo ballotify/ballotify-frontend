@@ -34,4 +34,12 @@ export const deleteQuestionChoice = createAction(
     }
 );
 
+export const toggleQuestionOption = createAction(
+    types.TOGGLE_QUESTION_OPTION, (value) => {
+        return {
+            option: value
+        };
+    }
+);
+
 export const cleanQuestion = createAction(types.CLEAN_QUESTION);

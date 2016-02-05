@@ -36,6 +36,11 @@ export default class QuestionForm extends Component {
         }
     }
 
+    toggleOption(option) {
+        const { actions } = this.props;
+        actions.toggleQuestionOption(option);
+    }
+
     handleCreateQuestion() {
         const { actions, newQuestion } = this.props;
 
@@ -107,6 +112,24 @@ export default class QuestionForm extends Component {
                       <ChoiceRow key={choice.get('id')} actions={actions} choice={choice} />
                     )}
                 </div>
+                <label className="c-input c-checkbox">
+                    <input type="checkbox" name="choice"
+                        onChange={() => this.toggleOption('isMultiple')} />
+                    <span className="c-indicator"></span>
+                    <span className="choice-title">Multiple answers allowed</span>
+                </label>
+                <label className="c-input c-checkbox">
+                    <input type="checkbox" name="choice"
+                        onChange={() => this.toggleOption('isRandomized')} />
+                    <span className="c-indicator"></span>
+                    <span className="choice-title">Randomize order</span>
+                </label>
+                <label className="c-input c-checkbox">
+                    <input type="checkbox" name="choice"
+                        onChange={() => this.toggleOption('isPrivate')} />
+                    <span className="c-indicator"></span>
+                    <span className="choice-title">Share with link only</span>
+                </label>
                 <div className="error">
                     {this.state.error}
                 </div>
