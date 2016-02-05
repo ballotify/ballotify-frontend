@@ -4,20 +4,23 @@ import classNames from 'classnames';
 
 
 export default class ChoiceRow extends Component {
-    handleChange(e) {
+    handleCheckboxChange(e) {
         const {actions, question, choice} = this.props;
         const isChecked = question.get('votes').includes(choice.get('id'));
 
-        if (question.get('isMultiple')) {
-            if (isChecked) {
-                actions.removeQuestionVote(choice.get('id'));
-            } else {
-                actions.addQuestionVote(choice.get('id'));
-            }
+        if (isChecked) {
+            actions.removeQuestionVote(choice.get('id'));
         } else {
-            if (!isChecked) {
-                actions.setQuestionVote(choice.get('id'));
-            }
+            actions.addQuestionVote(choice.get('id'));
+        }
+    }
+
+    handleRadioChange(e) {
+        const {actions, question, choice} = this.props;
+        const isChecked = question.get('votes').includes(choice.get('id'));
+
+        if (!isChecked) {
+            actions.setQuestionVote(choice.get('id'));
         }
     }
 
@@ -33,26 +36,26 @@ export default class ChoiceRow extends Component {
         let inputBlock;
         if (question.get('isMultiple')) {
             inputBlock = (
-                <label htmlFor={choice.get('id')} className={inputClasses}>
-                    <input type="checkbox" name="choice" id={choice.get('id')} value={choice.get('id')}
-                        defaultChecked={isChecked}
-                        onChange={this.handleChange.bind(this)} />
-                    <span className="c-indicator"></span>
-                    <span className="choice-title">{choice.get('title')}</span>
-                </label>);
+                <input type="checkbox" name="choice" id={choice.get('id')} value={choice.get('id')}
+                    defaultChecked={isChecked}
+                    onChange={this.handleCheckboxChange.bind(this)} />
+            );
         } else {
             inputBlock = (
-                <label htmlFor={choice.get('id')} className={inputClasses}>
-                    <input type="radio" name="choice" id={choice.get('id')} value={choice.get('id')}
-                        defaultChecked={isChecked}
-                        onChange={this.handleChange.bind(this)} />
-                    <span className="c-indicator"></span>
-                    <span className="choice-title">{choice.get('title')}</span>
-                </label>);
+                <input type="radio" name="choice" id={choice.get('id')} value={choice.get('id')}
+                    defaultChecked={isChecked}
+                    onChange={this.handleRadioChange.bind(this)} />
+            );
         }
 
         return (
-            <li className="list-group-item">{inputBlock}</li>
+            <li className="list-group-item">
+                <label htmlFor={choice.get('id')} className={inputClasses}>
+                    {inputBlock}
+                    <span className="c-indicator"></span>
+                    <span className="choice-title">{choice.get('title')}</span>
+                </label>
+            </li>
         );
     }
 }
