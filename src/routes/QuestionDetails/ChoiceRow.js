@@ -24,7 +24,9 @@ export default class ChoiceRow extends Component {
     render() {
         const {question, choice} = this.props;
         const isChecked = question.get('votes').includes(choice.get('id'));
-        const inputClasses = classNames({
+        const inputClasses = classNames('c-input', {
+            'c-checkbox': question.get('isMultiple'),
+            'c-radio': !question.get('isMultiple'),
             'active': isChecked
         });
 
@@ -35,6 +37,7 @@ export default class ChoiceRow extends Component {
                     <input type="checkbox" name="choice" id={choice.get('id')} value={choice.get('id')}
                         defaultChecked={isChecked}
                         onChange={this.handleChange.bind(this)} />
+                    <span className="c-indicator"></span>
                     <span className="choice-title">{choice.get('title')}</span>
                 </label>);
         } else {
@@ -43,6 +46,7 @@ export default class ChoiceRow extends Component {
                     <input type="radio" name="choice" id={choice.get('id')} value={choice.get('id')}
                         defaultChecked={isChecked}
                         onChange={this.handleChange.bind(this)} />
+                    <span className="c-indicator"></span>
                     <span className="choice-title">{choice.get('title')}</span>
                 </label>);
         }
