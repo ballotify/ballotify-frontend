@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Immutable from 'immutable';
 import ChoiceRow from './ChoiceRow';
 import * as currentQuestionActions from '../../actions/currentQuestion';
+import * as AuthActions from '../../actions/auth';
 
 
 export default class QuestionDetails extends React.Component {
@@ -15,29 +16,65 @@ export default class QuestionDetails extends React.Component {
         }
     }
 
+    facebookLogin() {
+        // TODO: How to do it DRY? facebookLogin is the same in different components...
+        const { actions } = this.props;
+        FB.login((response) => {
+            if (response.authResponse) {
+                actions.facebookLogin(response.authResponse.accessToken);
+            } else {
+             console.log('User cancelled login or did not fully authorize.');
+            }
+        });
+    }
+
+    handleVote() {
+        console.log('Voted');
+    }
+
     render() {
-        const { actions, currentQuestion } = this.props;
+        const { actions, currentQuestion, auth } = this.props;
 
         let questionBlock;
         if (currentQuestion.get('isPending')) {
             questionBlock = (<p>Loading...</p>);
 
         } else if (currentQuestion.get('isFulfilled')) {
-            questionBlock = (<div>
-                <p>{currentQuestion.get('title')}</p>
-                <ul className="list-group">
-                    {currentQuestion.get('choices').map(
-                        choice => <ChoiceRow key={choice.get('id')} choice={choice} question={currentQuestion} actions={actions} />
-                    )}
-                </ul>
-            </div>);
+            let voteButton;
+            if (auth.get('isAuthenticated')) {
+                voteButton = (
+                    <button type="button" className="btn btn-success-outline btn-sm"
+                        onClick={this.handleVote.bind(this)}>Vote</button>
+                );
+            } else {
+                if (auth.get('isPending')) {
+                    voteButton = (<p>Loading...</p>);
+                } else {
+                    voteButton = (
+                        <button type="button" className="btn btn-primary-outline btn-sm"
+                            onClick={this.facebookLogin.bind(this)}>Login with Facebook</button>
+                    );
+                }
+            }
+
+            questionBlock = (
+                <div className="col-sm-12">
+                    <p>{currentQuestion.get('title')}</p>
+                    <ul className="list-group">
+                        {currentQuestion.get('choices').map(
+                            choice => <ChoiceRow key={choice.get('id')} choice={choice} question={currentQuestion} actions={actions} />
+                        )}
+                    </ul>
+                    <div className="vote-button">
+                        {voteButton}
+                    </div>
+                </div>
+            );
         }
 
         return (
             <div className="row question-details">
-                <div className="col-sm-12">
-                    {questionBlock}
-                </div>
+                {questionBlock}
             </div>
         );
     }
@@ -59,7 +96,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(currentQuestionActions, dispatch)
+        actions: bindActionCreators(Object.assign({}, AuthActions, currentQuestionActions), dispatch)
     };
 }
 

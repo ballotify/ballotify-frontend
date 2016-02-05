@@ -26,10 +26,10 @@ export default class Navigation extends React.Component {
 
         let authBlock;
         if (auth.get('isAuthenticated')) {
-            authBlock = (<button className="btn btn-primary-outline pull-xs-right" type="submit"
+            authBlock = (<button className="btn btn-primary-outline btn-sm pull-xs-right" type="submit"
                             onClick={this.handleLogout.bind(this)}>Logout</button>);
         } else {
-            authBlock = (<button className="btn btn-primary-outline pull-xs-right" type="submit"
+            authBlock = (<button className="btn btn-primary-outline btn-sm pull-xs-right" type="submit"
                             onClick={this.facebookLogin.bind(this)}>Login with Facebook</button>);
         }
 
@@ -39,7 +39,9 @@ export default class Navigation extends React.Component {
                     <li className="nav-item"><IndexLink to="/" className="nav-link" activeClassName="active">Home</IndexLink></li>
                     <li className="nav-item"><Link to="/questions" className="nav-link" activeClassName="active">Questions</Link></li>
                 </ui>
-                {authBlock}
+                <div className="login">
+                    {authBlock}
+                </div>
             </div>
         );
     }
