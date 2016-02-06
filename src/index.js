@@ -10,7 +10,7 @@ import QuestionResults from './routes/QuestionResults';
 import NoMatch from './containers/NoMatch';
 import configureStore from './store/configureStore';
 import { loginSuccess } from './actions/auth';
-import './styles/styles.sass';
+import './styles/styles.scss';
 
 const store = configureStore();
 
