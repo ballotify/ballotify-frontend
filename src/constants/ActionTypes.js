@@ -15,9 +15,10 @@ export const LOGIN_FACEBOOK = 'LOGIN_FACEBOOK';
 // Questions:
 export const GET_QUESTIONS = 'GET_QUESTIONS';
 
-// Current question
+// Current question:
 export const GET_QUESTION = 'GET_QUESTION';
 export const CREATE_QUESTION = 'CREATE_QUESTION';
 export const ADD_QUESTION_VOTE = 'ADD_QUESTION_VOTE';
 export const SET_QUESTION_VOTE = 'SET_QUESTION_VOTE';
 export const REMOVE_QUESTION_VOTE = 'REMOVE_QUESTION_VOTE';
+export const VOTE_ON_QUESTION = 'VOTE_ON_QUESTION';

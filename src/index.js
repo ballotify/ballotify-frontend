@@ -6,6 +6,7 @@ import App from './containers/App';
 import Home from './routes/Home';
 import Questions from './routes/Questions';
 import QuestionDetails from './routes/QuestionDetails';
+import QuestionResults from './routes/QuestionResults';
 import NoMatch from './containers/NoMatch';
 import configureStore from './store/configureStore';
 import { loginSuccess } from './actions/auth';
@@ -25,6 +26,7 @@ render(
             <IndexRoute component={Home} />
             <Route path="questions" component={Questions} />
             <Route path="questions/:slug" component={QuestionDetails} />
+            <Route path="questions/:slug/results" component={QuestionResults} />
             <Route path="*" component={NoMatch} />
           </Route>
         </Router>

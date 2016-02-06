@@ -6,9 +6,8 @@ import classNames from 'classnames';
 export default class ChoiceRow extends Component {
     handleCheckboxChange(e) {
         const {actions, question, choice} = this.props;
-        const isChecked = question.get('votes').includes(choice.get('id'));
 
-        if (isChecked) {
+        if (this.isChecked()) {
             actions.removeQuestionVote(choice.get('id'));
         } else {
             actions.addQuestionVote(choice.get('id'));
@@ -17,16 +16,20 @@ export default class ChoiceRow extends Component {
 
     handleRadioChange(e) {
         const {actions, question, choice} = this.props;
-        const isChecked = question.get('votes').includes(choice.get('id'));
 
-        if (!isChecked) {
+        if (!this.isChecked()) {
             actions.setQuestionVote(choice.get('id'));
         }
     }
 
+    isChecked() {
+        const {question, choice} = this.props;
+        return question.getIn(['currentVote', 'choices']).find((item) => item.choice == choice.get('id'));
+    }
+
     render() {
         const {question, choice} = this.props;
-        const isChecked = question.get('votes').includes(choice.get('id'));
+        const isChecked = this.isChecked();
         const inputClasses = classNames('c-input', {
             'c-checkbox': question.get('isMultiple'),
             'c-radio': !question.get('isMultiple'),

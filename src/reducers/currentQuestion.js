@@ -8,7 +8,9 @@ const initialState = Immutable.fromJS({
     isFulfilled: null,
     isRejected: null,
     error: null,
-    votes: []
+    currentVote: {
+        choices: []
+    }
 });
 
 const currentQuestion = handleActions({
@@ -30,15 +32,15 @@ const currentQuestion = handleActions({
     },
 
     SET_QUESTION_VOTE: (state, action) => {
-        return state.updateIn(['votes'], arr => Immutable.List([action.payload.id]));
+        return state.updateIn(['currentVote', 'choices'], arr => Immutable.List([action.payload]));
     },
 
     ADD_QUESTION_VOTE: (state, action) => {
-        return state.updateIn(['votes'], arr => arr.push(action.payload.id));
+        return state.updateIn(['currentVote', 'choices'], arr => arr.push(action.payload));
     },
 
     REMOVE_QUESTION_VOTE: (state, action) => {
-        return state.updateIn(['votes'], arr => arr.filter(item => item != action.payload.id));
+        return state.updateIn(['currentVote', 'choices'], arr => arr.filter(item => item.choice != action.payload.choice));
     }
 
 }, initialState);
