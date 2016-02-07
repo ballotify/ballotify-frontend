@@ -1,5 +1,6 @@
 import * as types from '../constants/ActionTypes';
 import { createAction } from 'redux-actions';
+import { routeActions } from 'react-router-redux';
 import { api } from '../utils/api';
 
 export const loginSuccess = createAction(
@@ -30,10 +31,25 @@ export function facebookLogin(fbToken) {
 export const logout = createAction(types.LOGOUT, () => {
     localStorage.removeItem('jwtToken');
 
-    // Logout from Facebook if there is access token available
-    FB.getLoginStatus((response) => {
-        if (response.authResponse && response.authResponse.accessToken) {
-            FB.logout();
-        }
-    });
+    if (typeof FB !== 'undefined') {
+        // Logout from Facebook if there is access token available
+        FB.getLoginStatus((response) => {
+            if (response.authResponse && response.authResponse.accessToken) {
+                FB.logout();
+            }
+        });
+    }
 });
+
+
+export function logoutAndRedirect() {
+    return {
+        type: types.LOGOUT_AND_REDIRECT,
+        payload: {
+            promise: Promise.resolve((action, dispatch, getState) => {
+                dispatch(logout());
+                dispatch(routeActions.push('/'));
+            })
+        }
+    };
+}

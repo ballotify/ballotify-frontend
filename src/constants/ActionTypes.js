@@ -10,6 +10,7 @@ export const TOGGLE_QUESTION_OPTION = 'TOGGLE_QUESTION_OPTION';
 // Authentication:
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT = 'LOGOUT';
+export const LOGOUT_AND_REDIRECT = 'LOGOUT_AND_REDIRECT';
 export const LOGIN_FACEBOOK = 'LOGIN_FACEBOOK';
 
 // Questions:

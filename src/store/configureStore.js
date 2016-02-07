@@ -5,12 +5,12 @@ import rootReducer from '../reducers';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import Immutable from 'immutable';
-import { logout } from '../actions/auth';
+import { logoutAndRedirect } from '../actions/auth';
 
 // This middleware should be rewritten or removed, cause it's crap:
 const catch401 = store => next => action => {
     if (action.payload && action.payload.response && action.payload.response.status == 401) {
-        return next(logout());
+        return next(logoutAndRedirect());
     }
 
     return next(action);
