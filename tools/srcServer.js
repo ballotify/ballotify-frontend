@@ -6,6 +6,7 @@ import browserSync from 'browser-sync';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+import historyApiFallback from 'connect-history-api-fallback';
 import webpackConfigBuilder from '../webpack.config';
 
 const webpackConfig = webpackConfigBuilder('development');
@@ -34,7 +35,8 @@ browserSync({
             }),
 
             // bundler should be the same as above
-            webpackHotMiddleware(bundler)
+            webpackHotMiddleware(bundler),
+            historyApiFallback()
         ]
     },
 

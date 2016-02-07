@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Immutable from 'immutable';
-import classNames from 'classnames';
+import Vote from './Vote';
 
 
 export default class ChoiceRow extends Component {
@@ -8,11 +8,18 @@ export default class ChoiceRow extends Component {
         const { choice } = this.props;
 
         return (
-            <li className="list-group-item">
+            <li className="list-group-item choice-row">
                 <div className="choice-title">
                     {choice.get('title')}
                 </div>
-                <span className="votes-count">{choice.get('votesCount')}</span>
+                <div className="votes">
+                    <ul className="pictures">
+                        {choice.get('voteChoices').map(vote =>
+                            <Vote key={vote.getIn(['user', 'facebookId'])} choice={choice} vote={vote} />
+                        )}
+                    </ul>
+                    <span className="votes-count">{choice.get('votesCount')}</span>
+                </div>
             </li>
         );
     }

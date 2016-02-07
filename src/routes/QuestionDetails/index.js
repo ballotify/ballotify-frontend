@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import Immutable from 'immutable';
 import ChoiceRow from './ChoiceRow';
 import * as currentQuestionActions from '../../actions/currentQuestion';

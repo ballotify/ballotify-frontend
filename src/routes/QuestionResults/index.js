@@ -28,7 +28,7 @@ export default class QuestionResults extends React.Component {
                 <div className="col-sm-12">
                     <p>{currentQuestion.get('title')}</p>
                     <ul className="list-group">
-                        {currentQuestion.get('choices').map(
+                        {currentQuestion.get('choices').sortBy(choice => -choice.get('votesCount')).map(
                             choice => <ChoiceRow key={choice.get('id')} choice={choice} question={currentQuestion} actions={actions} />
                         )}
                     </ul>
