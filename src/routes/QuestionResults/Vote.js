@@ -8,8 +8,11 @@ export default class Vote extends Component {
         const userUrl = `http://graph.facebook.com/${vote.getIn(['user', 'facebookId'])}/picture?width=60&height=60`;
 
         return (
-            <li>
+            <li className="tooltip-wrapper">
                 <img className="img-rounded" src={userUrl} />
+                <div className="tooltip">
+                    <div>{vote.getIn(['user', 'name'])}</div>
+                </div>
             </li>
         );
     }

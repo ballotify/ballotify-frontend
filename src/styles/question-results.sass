@@ -2,6 +2,7 @@
     .choice-row
         display: flex
         align-items: center
+        height: 3rem
 
         .votes
             flex-grow: 1
@@ -22,3 +23,67 @@
                 width: 1.5rem
                 display: flex
                 justify-content: flex-end
+
+    .tooltip-wrapper
+        position: relative
+        cursor: pointer
+        -webkit-transform: translateZ(0)
+        -webkit-font-smoothing: antialiased
+
+        .tooltip
+            background: $hover-color
+            text-align: center
+            bottom: 100%
+            display: block
+            left: -3.25rem
+            margin-bottom: 0.65rem
+            opacity: 0
+            padding: 0.7rem
+            pointer-events: none
+            position: absolute
+            width: 10rem
+            -webkit-transform: translateY(10px)
+            -moz-transform: translateY(10px)
+            -ms-transform: translateY(10px)
+            -o-transform: translateY(10px)
+            transform: translateY(10px)
+            -webkit-transition: all .25s ease-out
+            -moz-transition: all .25s ease-out
+            -ms-transition: all .25s ease-out
+            -o-transition: all .25s ease-out
+            transition: all .25s ease-out
+            -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.28)
+            -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.28)
+            -ms-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.28)
+            -o-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.28)
+            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.28)
+
+            &:before
+                bottom: -20px
+                content: " "
+                display: block
+                height: 20px
+                left: 0
+                position: absolute
+                width: 100%
+
+            &:after
+                border-left: solid transparent 1rem
+                border-right: solid transparent 1rem
+                border-top: solid $hover-color 1rem
+                bottom: -0.5rem
+                content: " "
+                height: 0
+                left: 50%
+                margin-left: -1rem
+                position: absolute
+                width: 0
+
+        &:hover .tooltip
+            opacity: 1
+            pointer-events: auto
+            -webkit-transform: translateY(0px)
+            -moz-transform: translateY(0px)
+            -ms-transform: translateY(0px)
+            -o-transform: translateY(0px)
+            transform: translateY(0px)
