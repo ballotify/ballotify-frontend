@@ -24,7 +24,7 @@ export default class Questions extends React.Component {
                 <div>
                     {questions.get('data').map(question =>
                       <div key={question.slug} className="list-group-item">
-                          <Link to={`/questions/${question.slug}`}>{question.title}</Link>
+                          <Link to={question.isVoted ? `/questions/${question.slug}/results`: `/questions/${question.slug}`}>{question.title}</Link>
                       </div>
                     )}
                 </div>

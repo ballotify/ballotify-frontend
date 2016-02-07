@@ -18,6 +18,7 @@ export const GET_QUESTIONS = 'GET_QUESTIONS';
 
 // Current question:
 export const GET_QUESTION = 'GET_QUESTION';
+export const RESOLVE_QUESTION = 'RESOLVE_QUESTION';
 export const CREATE_QUESTION = 'CREATE_QUESTION';
 export const ADD_QUESTION_VOTE = 'ADD_QUESTION_VOTE';
 export const SET_QUESTION_VOTE = 'SET_QUESTION_VOTE';

@@ -4,11 +4,34 @@ import * as types from '../constants/ActionTypes';
 import { api } from '../utils/api';
 import { cleanQuestion } from './newQuestion';
 
+
+export const resolveQuestion = createAction(
+    types.RESOLVE_QUESTION, (question) => {
+        return question;
+    }
+);
+
+
 export function getQuestion(slug, params) {
     return {
-         type: types.GET_QUESTION,
+        type: types.GET_QUESTION,
         payload: {
-            promise: api.get(`/questions/${slug}`, params)
+            promise: api.get(`/questions/${slug}`, params).then(response => {
+                return (action, dispatch, getState) => {
+                    if (response.isVoted && getState().toJS().route.location.pathname == `/questions/${response.slug}`) {
+                        // Redirect to results, if already voted
+                        dispatch(routeActions.push(`/questions/${response.slug}/results`));
+                    } else if (!response.isVoted && getState().toJS().route.location.pathname == `/questions/${response.slug}/questions`) {
+                        // Redirect to details, if not voted yet
+                        dispatch(routeActions.push(`/questions/${response.slug}`));
+                    } else {
+                        dispatch({
+                            type: 'GET_QUESTION_FULFILLED',
+                            payload: response
+                        });
+                    }
+                };
+            })
         }
     };
 }
