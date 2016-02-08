@@ -83,6 +83,12 @@ export function voteOnQuestion(question) {
                     dispatch(cleanQuestion());
                     dispatch(routeActions.push(`/questions/${question.get('slug')}/results`));
                 };
+            }, reason => {
+                return (action, dispatch, getState) => {
+                    // TODO: Better error handling
+                    // TODO: "Already voted" notification
+                    dispatch(routeActions.push(`/questions/${question.get('slug')}/results`));
+                };
             })
         }
     };
