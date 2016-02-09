@@ -24,7 +24,7 @@ class App extends React.Component {
             });
 
             FB.getLoginStatus((response) => {
-                this.runFbInitCriticalCode();
+                this.authenticate(response);
             });
         };
 
@@ -38,8 +38,16 @@ class App extends React.Component {
         })(document, 'script', 'facebook-jssdk');
     }
 
-    runFbInitCriticalCode() {
+    authenticate(fbResponse) {
+        const {actions} = this.props;
         this.setState({'fbLoaded': true});
+
+        if (fbResponse.status == "connected") {
+            let token = localStorage.getItem('jwtToken');
+            if (token !== null) {
+                actions.loginSuccess(token);
+            }
+        }
     }
 
     render() {

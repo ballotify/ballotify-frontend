@@ -14,11 +14,6 @@ import './styles/styles.scss';
 
 const store = configureStore();
 
-let token = localStorage.getItem('jwtToken');
-if (token !== null) {
-    store.dispatch(loginSuccess(token));
-}
-
 render(
     <Provider store={store}>
         <Router history={browserHistory}>
