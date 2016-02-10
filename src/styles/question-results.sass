@@ -32,6 +32,7 @@
 
         .tooltip
             background: $hover-color
+            border: 1px solid darken($hover-color, 10%);
             text-align: center
             bottom: 100%
             display: block
@@ -47,16 +48,11 @@
             -ms-transform: translateY(10px)
             -o-transform: translateY(10px)
             transform: translateY(10px)
-            -webkit-transition: all .25s ease-out
-            -moz-transition: all .25s ease-out
-            -ms-transition: all .25s ease-out
-            -o-transition: all .25s ease-out
-            transition: all .25s ease-out
-            -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.28)
-            -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.28)
-            -ms-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.28)
-            -o-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.28)
-            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.28)
+            -webkit-transition: all .1s ease-out
+            -moz-transition: all .1s ease-out
+            -ms-transition: all .1s ease-out
+            -o-transition: all .1s ease-out
+            transition: all .1s ease-out
 
             &:before
                 bottom: -20px
@@ -68,14 +64,14 @@
                 width: 100%
 
             &:after
-                border-left: solid transparent 1rem
-                border-right: solid transparent 1rem
-                border-top: solid $hover-color 1rem
+                border-left: solid transparent 0.5rem
+                border-right: solid transparent 0.5rem
+                border-top: solid darken($hover-color, 8%) 0.5rem
                 bottom: -0.5rem
                 content: " "
                 height: 0
                 left: 50%
-                margin-left: -1rem
+                margin-left: -0.6rem
                 position: absolute
                 width: 0
 

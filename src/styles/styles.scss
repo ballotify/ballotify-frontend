@@ -3,7 +3,24 @@
 @import 'question-form';
 @import 'question-details';
 @import 'question-results';
+@import 'ball-fall';
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+#app {
+    height: 100%;
+}
 
 .app {
     margin-top: 1rem;
+}
+
+.full-height {
+    height: 100%;
 }

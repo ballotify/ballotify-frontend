@@ -50,8 +50,6 @@ Unfortunately, scripts in package.json can't be commented inline because the JSO
 | clean-dist | Removes everything from the dist folder. |
 | remove-dist | Deletes the dist folder. |
 | create-dist | Creates the dist folder and the necessary subfolders. |
-| build:html | Adds trackJS tracking script and copies to /dist. |
-| build:sass | Compiles SASS, minifies, generates sourcemap, and stores in /dist. |
 | prebuild | Runs automatically before build script (due to naming convention). Cleans dist folder, builds html, and builds sass. |
 | build | Bundles all JavaScript using webpack and writes it to /dist. |
 | test | Runs tests (files ending in .spec.js) using Mocha and outputs results to the command line. Watches all files so tests are re-run upon save. |

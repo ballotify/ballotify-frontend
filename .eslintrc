@@ -65,6 +65,7 @@
         "react/wrap-multilines": 1
     },
     "globals": {
-        "FB": true
+        "FB": true,
+        __DEV__: true
     }
 }

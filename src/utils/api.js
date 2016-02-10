@@ -1,4 +1,5 @@
 import request from './request';
+import { API_ROOT as base } from '../constants/globals';
 
 const Api = () => {
 
@@ -19,8 +20,6 @@ const Api = () => {
             headers: headers
         };
     }
-
-    const base = 'http://localhost:8002/v1';
 
     return {
 

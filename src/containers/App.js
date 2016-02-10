@@ -3,8 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
 import * as AuthActions from '../actions/auth';
+import { FACEBOOK_ID } from '../constants/globals';
 import Navigation from './Navigation';
-
 
 class App extends React.Component {
     constructor (props, context) {
@@ -17,7 +17,7 @@ class App extends React.Component {
     componentDidMount() {
         window.fbAsyncInit = () => {
             FB.init({
-                appId   : '107790869310294',
+                appId   : FACEBOOK_ID,
                 status  : true,
                 xfbml   : true,
                 version : 'v2.5'
@@ -40,6 +40,7 @@ class App extends React.Component {
 
     authenticate(fbResponse) {
         const {actions} = this.props;
+
         this.setState({'fbLoaded': true});
 
         if (fbResponse.status == "connected") {
@@ -57,18 +58,28 @@ class App extends React.Component {
 
         if (this.state.fbLoaded) {
             app = (
-                <div>
-                    <Navigation auth={auth} actions={actions} />
-                    <div className="app container">
-                        {this.props.children}
-                    </div>
+                <div className="app container">
+                    {this.props.children}
                 </div>
             );
         } else {
-            app = (<p>Loading</p>);
+            app = (
+                <div className="loader-wrapper">
+                    <div className="la-ball-fall la-dark la-2x loader">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            );
         }
 
-        return app;
+        return (
+            <div className="full-height">
+                <Navigation auth={auth} actions={actions} />
+                {app}
+            </div>
+        );
     }
 }
 
