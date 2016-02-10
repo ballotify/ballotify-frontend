@@ -18,7 +18,7 @@ class App extends React.Component {
         window.fbAsyncInit = () => {
             FB.init({
                 appId   : FACEBOOK_ID,
-                status  : true,
+                cookie  : true,
                 xfbml   : true,
                 version : 'v2.5'
             });
@@ -26,6 +26,7 @@ class App extends React.Component {
             FB.getLoginStatus((response) => {
                 this.authenticate(response);
             });
+
         };
 
         (function (d, s, id) {
@@ -38,12 +39,14 @@ class App extends React.Component {
         })(document, 'script', 'facebook-jssdk');
     }
 
-    authenticate(fbResponse) {
+    authenticate(response) {
         const {actions} = this.props;
+
+        console.log(response);
 
         this.setState({'fbLoaded': true});
 
-        if (fbResponse.status == "connected") {
+        if (response.status == "connected") {
             let token = localStorage.getItem('jwtToken');
             if (token !== null) {
                 actions.loginSuccess(token);
